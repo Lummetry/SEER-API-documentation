@@ -205,7 +205,7 @@ Returns recommendations using a statistical (baseline) engine.
 {
   "TASK" : "get_baseline_recom",
   "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [232123, 9122112],
+  "ITEMS_LIST" : [512762],
   "NR_ITEMS" : 5
 }
 ```
@@ -213,7 +213,74 @@ Returns recommendations using a statistical (baseline) engine.
 #### Response: ####
 ```python
 {
-  "ITEMS" : [[898989, 928212, 7428121, 943113, 2133442], [2819122, 9343211, 2044331, 395343, 131431]]
-  "SCORES": [[74, 67, 43, 21, 9], [3242, 2844, 1001, 198, 42]
+  "ITEMS": [[408464, 599477, 599484, 599482, 488908]],
+  "SCORES": [[40.0, 30.0, 30.0, 15.0, 15.0]]
 }
 ```
+
+
+### 7. get_same_interest_recom ###
+
+Returns recommendations with the best matched items from the same interest category of the starting item.
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting same interest recommendations |
+| `NR_ITEMS` | `integer` | The number of items recommended for each item in `ITEMS_LIST` |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_same_interest_recom",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [512762],
+  "NR_ITEMS" : 10
+}
+```
+
+#### Response: ####
+```python
+{
+  "ITEMS" : [[599477, 599484, 408464, 599482, 640880, 647459, 428259, 610448, 473932, 457259]],
+  "SCORES": [[30.0, 30.0, 40.0, 15.0, 4.0, 2.0, 2.0, 6.0, 5.0, 1.0]]
+}
+```
+
+### 8. get_close_interests_recom ###
+
+Returns recommendations with the best matched items from close interest categories to the interest category of the starting item.
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting close interests recommendations |
+| `NR_INTERESTS` | `integer` | The number of close interest categories for each item in `ITEMS_LIST` |
+| `NR_ITEMS` | `integer` | The number of items recommended for each close interest category for each item in `ITEMS_LIST` |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_close_interests_recom",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST": [512762],
+  "NR_ITEMS": 1,
+  "NR_INTERESTS": 10
+}
+```
+
+#### Response: ####
+```python
+{
+  "ITEMS": [[599477], [598940], [587387], [538515], [477113], [646869], [309196], [605327], [582147], [350641]],
+  "SCORES": [[30.0], [0.0], [0.0], [1.0], [2.0], [1.0], [1.0], [0.0], [0.0], [0.0]]
+}
+```
+
+### 9. get_type1_checkout_bonus_items ###
+
+
