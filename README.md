@@ -110,7 +110,7 @@ Returns all the interests identified in a category defined by the category manag
 
 ```python
 {
-  "TASK" : "get_interest_categories_overview_by_score",
+  "TASK" : "get_category_interests",
   "MAP_ID" : "20200314_162354",
   "CATEGORY_ID" : 7,
   "MIN_ITEMS_PER_INTEREST" : 5
@@ -140,7 +140,7 @@ Returns all the items identified in an interest category.
 
 ```python
 {
-  "TASK" : "get_interest_categories_overview_by_score",
+  "TASK" : "get_interest_items",
   "MAP_ID" : "20200314_162354",
   "INTEREST_ID" : 323
 }
