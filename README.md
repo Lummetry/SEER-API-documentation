@@ -155,3 +155,65 @@ Returns all the items identified in an interest category.
 ```
 
 The reponse contains a list all obfuscated SKUs that are identified in the interest category specified in the request.
+
+
+### 5. get_category_outliers ###
+
+Returns all the outliers of a category. Specifically, the outliers are all the items that are found in interest categories that do not represent the requested cateogory.
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `CATEGORY_ID` | `integer` | A category defined by the category management department |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_category_outliers",
+  "MAP_ID" : "20200314_162354",
+  "CATEGORY_ID" : 7
+}
+```
+
+#### Response: ####
+
+```python
+{
+  "CATEGORY_OUTLIERS" : [76765, 232123, 1129011, 9122112, ...]
+}
+```
+
+The reponse contains a list all obfuscated SKUs that are identified as category outliers.
+
+
+### 6. get_baseline_recom ###
+
+Returns recommendations using a statistical (baseline) engine.
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting baseline recommendations |
+| `NR_ITEMS` | `integer` | The number of items recommended for each item in `ITEMS_LIST` |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_baseline_recom",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [232123, 9122112],
+  "NR_ITEMS" : 5
+}
+```
+
+#### Response: ####
+```python
+{
+  "ITEMS" : [[898989, 928212, 7428121, 943113, 2133442], [2819122, 9343211, 2044331, 395343, 131431]]
+  "SCORES": [[74, 67, 43, 21, 9], [3242, 2844, 1001, 198, 42]
+}
+```
