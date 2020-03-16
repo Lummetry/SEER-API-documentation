@@ -5,7 +5,7 @@ LENS Product Explorer is a multi-purpose system that targets retail and distribu
 ## API Calls ##
 
 Each API call has 2 required parameters:
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `TASK` | `string` | The task definition |
 | `MAP_ID` | `string` | A string that identifies the map |
@@ -18,7 +18,7 @@ The first API call is aimed to respond with the 2D projection of this items know
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `PNG` | `boolean` | Specifies whether the API sends or not a PNG snapshot of the items map |
 | `PNG_SIZE` | `integer` | The size (in pixels) of the PNG snapshot |
@@ -101,7 +101,7 @@ Returns all the interests identified in a category defined by the category manag
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `CATEGORY_ID` | `integer` | A category defined by the category management department |
 | `MIN_ITEMS_PER_INTEREST` | `integer` | Threshold |
@@ -132,7 +132,7 @@ Returns all the items identified in an interest category.
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `INTEREST_ID` | `integer` | The ID of the interest category |
 
@@ -163,7 +163,7 @@ Returns all the outliers of a category. Specifically, the outliers are all the i
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `CATEGORY_ID` | `integer` | A category defined by the category management department |
 
@@ -194,7 +194,7 @@ Returns recommendations using a statistical (baseline) engine.
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting baseline recommendations |
 | `NR_ITEMS` | `integer` | The number of items recommended for each item in `ITEMS_LIST` |
@@ -225,7 +225,7 @@ Returns recommendations with the best matched items from the same interest categ
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting same interest recommendations |
 | `NR_ITEMS` | `integer` | The number of items recommended for each item in `ITEMS_LIST` |
@@ -255,7 +255,7 @@ Returns recommendations with the best matched items from close interest categori
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting close interests recommendations |
 | `NR_INTERESTS` | `integer` | The number of close interest categories for each item in `ITEMS_LIST` |
@@ -287,7 +287,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
@@ -316,7 +316,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
@@ -345,7 +345,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of item candidates |
@@ -374,7 +374,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of item candidates |
@@ -403,7 +403,7 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_BASKETS` | `integer` | The number of next baskets to be explored |
@@ -437,7 +437,7 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 
 #### Additional parameters: ####
 
-| Key | Type | Value description |
+| Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_BASKETS` | `integer` | The number of next baskets to be explored |
