@@ -283,4 +283,184 @@ Returns recommendations with the best matched items from close interest categori
 
 ### 9. get_type1_checkout_bonus_items ###
 
+Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of other items that are very likely to match with the current shopping basket items. (_neural system type 1_)
 
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_type1_checkout_bonus_items",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [442974, 442973],
+  "NR_ITEMS": 3
+}
+```
+
+#### Response: ####
+```python
+{
+  "BONUS_ITEMS": [454475, 459238, 459239]
+}
+```
+
+### 10. get_type2_checkout_bonus_items ###
+
+Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of other items that are very likely to match with the current shopping basket items. (_neural system type 2_)
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_type2_checkout_bonus_items",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [442974, 442973],
+  "NR_ITEMS": 3
+}
+```
+
+#### Response: ####
+```python
+{
+  "BONUS_ITEMS": [402010, 409228, 424328]
+}
+```
+
+### 11. get_type1_next_sorted_candidates ###
+
+Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of items candidates that are very likely to be the next item in that shopping session. (_neural system type 1_)
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_ITEMS` | `integer` | The number of item candidates |
+
+#### Request: ####
+
+```python
+{
+  "TASK": "get_type1_next_sorted_candidates",
+  "MAP_ID": "20200314_162354",
+  "ITEMS_LIST": [442974, 442973],
+  "NR_ITEMS": 3
+}
+```
+
+#### Response: ####
+```python
+{
+  "CANDIDATES": [402010, 409228, 424328]
+}
+```
+
+### 12. get_type2_next_sorted_candidates ###
+
+Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of items candidates that are very likely to be the next item in that shopping session. (_neural system type 2_)
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_ITEMS` | `integer` | The number of item candidates |
+
+#### Request: ####
+
+```python
+{
+  "TASK": "get_type2_next_sorted_candidates",
+  "MAP_ID": "20200314_162354",
+  "ITEMS_LIST": [442974, 442973],
+  "NR_ITEMS": 3
+}
+```
+
+#### Response: ####
+```python
+{
+  "CANDIDATES": [402010, 409228, 424328]
+}
+```
+
+### 13. get_type1_baskets_options ###
+
+This API call returns the most probable `NR_BASKETS` shopping baskets starting from the current basket (_next baskets exploration with neural system type 1_)
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_BASKETS` | `integer` | The number of next baskets to be explored |
+| `NR_ITEMS` | `integer` | The number of items per each next basket |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_type1_baskets_options",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [442974, 442973],
+  "NR_BASKETS": 3,
+  "NR_ITEMS": 5
+}
+```
+
+#### Response: ####
+
+```python
+{
+  "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
+                      [383569, 427584, 414357, 414449, 379605],
+                      [454475, 414649, 447118, 359329, 329911]]
+}
+```
+
+### 14. get_type2_baskets_options ###
+
+This API call returns the most probable `NR_BASKETS` shopping baskets starting from the current basket (_next baskets exploration with neural system type 2_)
+
+#### Additional parameters: ####
+
+| Key | Type | Value description |
+| :--- | :--- | :--- |
+| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
+| `NR_BASKETS` | `integer` | The number of next baskets to be explored |
+| `NR_ITEMS` | `integer` | The number of items per each next basket |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_type2_baskets_options",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST" : [442974, 442973],
+  "NR_BASKETS": 3,
+  "NR_ITEMS": 5
+}
+```
+
+#### Response: ####
+
+```python
+{
+  "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
+                      [383569, 427584, 414357, 414449, 379605],
+                      [454475, 414649, 447118, 359329, 329911]]
+}
+```
