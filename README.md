@@ -291,6 +291,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -306,7 +307,8 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "BONUS_ITEMS": [454475, 459238, 459239]
+  "BONUS_ITEMS": [454475, 459238, 459239],
+  "SCORES" : [1.0, 1.0, 0.95]
 }
 ```
 
@@ -320,6 +322,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -335,7 +338,8 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "BONUS_ITEMS": [402010, 409228, 424328]
+  "BONUS_ITEMS": [402010, 409228, 424328],
+  "SCORES" : [1.0, 1.0, 0.95]
 }
 ```
 
@@ -349,6 +353,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of item candidates |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -364,7 +369,8 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "CANDIDATES": [402010, 409228, 424328]
+  "CANDIDATES": [402010, 409228, 424328],
+  "SCORES" : [1.0, 0.98, 0.95]
 }
 ```
 
@@ -378,6 +384,7 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 | :--- | :--- | :--- |
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_ITEMS` | `integer` | The number of item candidates |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -393,7 +400,8 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "CANDIDATES": [402010, 409228, 424328]
+  "CANDIDATES": [402010, 409228, 424328],
+  "SCORES" : [1.0, 0.98, 0.95]
 }
 ```
 
@@ -408,6 +416,7 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_BASKETS` | `integer` | The number of next baskets to be explored |
 | `NR_ITEMS` | `integer` | The number of items per each next basket |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -427,7 +436,10 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 {
   "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
                       [383569, 427584, 414357, 414449, 379605],
-                      [454475, 414649, 447118, 359329, 329911]]
+                      [454475, 414649, 447118, 359329, 329911]],
+  "SCORES" : [[1.0, 1.0, 0.97, 1.0, 1.0],
+              [0.96, 0.87, 1.0, 1.0, 1.0],
+              [0.94, 1.0, 1.0, 1.0, 0.88]]
 }
 ```
 
@@ -442,6 +454,7 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 | `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
 | `NR_BASKETS` | `integer` | The number of next baskets to be explored |
 | `NR_ITEMS` | `integer` | The number of items per each next basket |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 
 #### Request: ####
 
@@ -461,6 +474,9 @@ This API call returns the most probable `NR_BASKETS` shopping baskets starting f
 {
   "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
                       [383569, 427584, 414357, 414449, 379605],
-                      [454475, 414649, 447118, 359329, 329911]]
+                      [454475, 414649, 447118, 359329, 329911]],
+  "SCORES" : [[1.0, 1.0, 0.97, 1.0, 1.0],
+              [0.96, 0.87, 1.0, 1.0, 1.0],
+              [0.94, 1.0, 1.0, 1.0, 0.88]]
 }
 ```
