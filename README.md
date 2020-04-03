@@ -4,6 +4,29 @@ LENS Product Explorer is a multi-purpose system that targets retail and distribu
 
 ## 1. Recommender API ##
 
+Each API call has 2 required parameters:
+| Key | Value type | Value description |
+| :--- | :--- | :--- |
+| `TASK` | `string` | The task definition |
+| `MAP_ID` | `string` | A string that identifies the map |
+
+Additionally, each API call may have 2 optional parameters:
+| Key | Value type | Value description |
+| :--- | :--- | :--- |
+| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+| `EXCLUDE_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs which will be excluded from recommedations |
+
+
+| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+
+[get_same_interest_recom](#markdown-header-#11-get_same_interest_recom)
+
+
+## 1.1 Single-item recommendations
+
+
+
 ### 1.1 get_same_interest_recom ###
 
 Returns recommendations with the best matched items from the same interest category of the starting item.
@@ -12,8 +35,8 @@ Returns recommendations with the best matched items from the same interest categ
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting same interest recommendations |
-| `NR_ITEMS` | `integer` | The number of items recommended for each item in `ITEMS_LIST` |
+| `START_ITEMS` | `integer` or `list[integer]` | Obfuscated SKU(s) used for starting "same-interest" recommendations |
+| `NR_ITEMS` | `integer` | The number of items recommended for each item in `START_ITEMS` |
 
 #### Request: ####
 
@@ -21,7 +44,7 @@ Returns recommendations with the best matched items from the same interest categ
 {
   "TASK" : "get_same_interest_recom",
   "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [512762],
+  "START_ITEMS" : [512762],
   "NR_ITEMS" : 10
 }
 ```
@@ -29,28 +52,27 @@ Returns recommendations with the best matched items from the same interest categ
 #### Response: ####
 ```python
 {
-  "ITEMS" : [[599477, 599484, 408464, 599482, 640880, 647459, 428259, 610448, 473932, 457259]],
-  "SCORES": [[30.0, 30.0, 40.0, 15.0, 4.0, 2.0, 2.0, 6.0, 5.0, 1.0]]
+  "ITEMS" : [[599477, 599484, 408464, 599482, 640880, 647459, 428259, 610448, 473932, 457259]]
 }
 ```
 
-### 1.2 get_close_interests_recom ###
+### 1.2 get_near_interest_recom ###
 
-Returns recommendations with the best matched items from close interest categories to the interest category of the starting item.
+Returns recommendations with the best matched items from interest categories which are in the neighborhood of the interest category of the starting item.
 
 #### Additional parameters: ####
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `ITEMS_LIST` | `integer` or `list[integer]` | Obfuscated SKUs used for starting close interests recommendations |
-| `NR_INTERESTS` | `integer` | The number of close interest categories for each item in `ITEMS_LIST` |
-| `NR_ITEMS` | `integer` | The number of items recommended for each close interest category for each item in `ITEMS_LIST` |
+| `START_ITEMS` | `integer` or `list[integer]` | Obfuscated SKUs used for starting "near-interest" recommendations |
+| `NR_INTERESTS` | `integer` | The number of neighbor interest categories for each item in `START_ITEMS` |
+| `NR_ITEMS` | `integer` | The number of items recommended for each neighbor interest category for each item in `START_ITEMS` |
 
 #### Request: ####
 
 ```python
 {
-  "TASK" : "get_close_interests_recom",
+  "TASK" : "get_near_interest_recom",
   "MAP_ID" : "20200314_162354",
   "ITEMS_LIST": [512762],
   "NR_ITEMS": 1,
