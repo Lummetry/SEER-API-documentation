@@ -19,12 +19,12 @@ Additionally, each API call may have 2 optional parameters:
 
 Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
 
-Below, you can consult the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not accepted (/)__:  
+Below, you can consult the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
 | Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | / | / | / | O | O |
-| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | / | / | O | O |
-| [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | / | / | O | O |
+| [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | O | O |
+| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | N/A | N/A | O | O |
+| [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | N/A | N/A | O | O |
 
 
 ## 1.1 Single-item recommendations
