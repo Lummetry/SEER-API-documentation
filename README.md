@@ -11,11 +11,11 @@ Each API call has 3 required parameters:
 | `MAP_ID` | `string` | A string that identifies the map |
 | `NR_ITEMS` | `integer` | The number of items to be recommended |
 
-Additionally, each API call may have 2 optional parameters:
+Additionally, each API call may have 2 __optional__ parameters:
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
-| `EXCLUDE_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs which will be excluded from recommedations |
+| `FILTER_ITEMS` | `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+| `EXCLUDE_ITEMS` | `list[integer]` | Obfuscated SKUs which will be excluded from recommedations |
 
 Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
 
