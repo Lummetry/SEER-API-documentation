@@ -19,7 +19,7 @@ Additionally, each API call may have 2 __optional__ parameters:
 
 Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
 
-Below, you can consult the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
+Below is defined the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
 | Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | O | O |
