@@ -20,7 +20,7 @@ Additionally, each API call may have 2 optional parameters:
 | Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 
-[get_same_interest_recom](#markdown-header-#11-get_same_interest_recom)
+[get_same_interest_recom](#11-get_same_interest_recom)
 
 
 ## 1.1 Single-item recommendations
