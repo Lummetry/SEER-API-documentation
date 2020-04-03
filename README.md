@@ -4,7 +4,7 @@ LENS Product Explorer is a multi-purpose system that targets retail and distribu
 
 ## 1. Recommender API ##
 
-Each API call has 3 required parameters:
+Each API call has 3 __required__ parameters:
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `TASK` | `string` | The task definition |
