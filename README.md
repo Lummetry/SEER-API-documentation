@@ -73,7 +73,7 @@ Returns recommendations with the best matched items from interest categories whi
 {
   "TASK" : "get_near_interest_recom",
   "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST": [512762, 673224],
+  "START_ITEMS": [512762, 673224],
   "NR_ITEMS": 2,
   "NR_INTERESTS": 3
 }
@@ -109,7 +109,7 @@ Returns recommendations with the best matched items from interest categories whi
 {
   "TASK" : "get_near_interest_recom",
   "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST": [512762, 673224],
+  "START_ITEMS": [512762, 673224],
   "NR_ITEMS": 2,
   "NR_INTERESTS": 3
 }
