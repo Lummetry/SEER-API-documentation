@@ -4,11 +4,12 @@ LENS Product Explorer is a multi-purpose system that targets retail and distribu
 
 ## 1. Recommender API ##
 
-Each API call has 2 required parameters:
+Each API call has 3 required parameters:
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
 | `TASK` | `string` | The task definition |
 | `MAP_ID` | `string` | A string that identifies the map |
+| `NR_ITEMS` | `integer` | The number of items to be recommended |
 
 Additionally, each API call may have 2 optional parameters:
 | Key | Value type | Value description |
@@ -16,27 +17,27 @@ Additionally, each API call may have 2 optional parameters:
 | `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 | `EXCLUDE_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs which will be excluded from recommedations |
 
+Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
 
-| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-
-[get_same_interest_recom](#11-get_same_interest_recom)
+Below, you can consult the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not accepted (/)__:  
+| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | / | / | / | O | O |
+| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | / | / | O | O |
+| [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | / | / | O | O |
 
 
 ## 1.1 Single-item recommendations
 
-
-
-### 1.1 get_same_interest_recom ###
-
-Returns recommendations with the best matched items from the same interest category of the starting item.
-
-#### Additional parameters: ####
+The recommendations in this section are computed given a single item. The item should be specified as value for key __`START_ITEMS`__. The engine can handle multiple items in the same request and therefore will be recommended `NR_ITEMS` items for each item in `START_ITEMS`. Below is found the description of the __`START_ITEMS`__ parameter:
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `START_ITEMS` | `integer` or `list[integer]` | Obfuscated SKU(s) used for starting "same-interest" recommendations |
-| `NR_ITEMS` | `integer` | The number of items recommended for each item in `START_ITEMS` |
+| `START_ITEMS` | `integer` or `list[integer]` | Obfuscated SKU(s) used for starting single-item recommendations |
+
+### 1.1.1 get_same_interest_recom ###
+
+Returns recommendations with the best matched items from the same interest category of the starting item.
 
 #### Request: ####
 
@@ -56,7 +57,7 @@ Returns recommendations with the best matched items from the same interest categ
 }
 ```
 
-### 1.2 get_near_interest_recom ###
+### 1.1.2 get_near_interest_recom ###
 
 Returns recommendations with the best matched items from interest categories which are in the neighborhood of the interest category of the starting item.
 
@@ -64,9 +65,7 @@ Returns recommendations with the best matched items from interest categories whi
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `START_ITEMS` | `integer` or `list[integer]` | Obfuscated SKUs used for starting "near-interest" recommendations |
-| `NR_INTERESTS` | `integer` | The number of neighbor interest categories for each item in `START_ITEMS` |
-| `NR_ITEMS` | `integer` | The number of items recommended for each neighbor interest category for each item in `START_ITEMS` |
+| `NR_INTERESTS` | `integer` | The number of *neighbor* interest categories for each item in `START_ITEMS` |
 
 #### Request: ####
 
@@ -74,19 +73,62 @@ Returns recommendations with the best matched items from interest categories whi
 {
   "TASK" : "get_near_interest_recom",
   "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST": [512762],
-  "NR_ITEMS": 1,
-  "NR_INTERESTS": 10
+  "ITEMS_LIST": [512762, 673224],
+  "NR_ITEMS": 2,
+  "NR_INTERESTS": 3
 }
 ```
 
 #### Response: ####
 ```python
 {
-  "ITEMS": [[599477], [598940], [587387], [538515], [477113], [646869], [309196], [605327], [582147], [350641]],
-  "SCORES": [[30.0], [0.0], [0.0], [1.0], [2.0], [1.0], [1.0], [0.0], [0.0], [0.0]]
+  "ITEMS": [[[599477, 598940],
+             [587387, 538515],
+             [477113, 646869]],
+             
+            [[309196, 605327],
+             [582147, 350641],
+             [892344, 812242]]
+            ]
 }
 ```
+
+### 1.1.3 get_complementary_interests_recom ###
+
+Returns recommendations with the best matched items from interest categories which are often bougth together (on the same receipt) with the interest category of the starting item.
+
+#### Additional parameters: ####
+
+| Key | Value type | Value description |
+| :--- | :--- | :--- |
+| `NR_INTERESTS` | `integer` | The number of *complementary* interest categories for each item in `START_ITEMS` |
+
+#### Request: ####
+
+```python
+{
+  "TASK" : "get_near_interest_recom",
+  "MAP_ID" : "20200314_162354",
+  "ITEMS_LIST": [512762, 673224],
+  "NR_ITEMS": 2,
+  "NR_INTERESTS": 3
+}
+```
+
+#### Response: ####
+```python
+{
+  "ITEMS": [[[982455, 184553],
+             [587387, 538515],
+             [929212, 355533]],
+             
+            [[190223, 100024],
+             [582147, 350641],
+             [892344, 812242]]
+            ]
+}
+```
+
 
 ### 1.3 get_type1_checkout_bonus_items ###
 
