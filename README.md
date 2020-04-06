@@ -203,7 +203,7 @@ These recommendations are suitable for users that do have a shopping history.
 
 ### 1.3.1 get_long_term_insights_recom
 
-Same description as [get_short_term_insights_recom](#121-get_long_term_last_minute_recom).
+Same description as [get_short_term_insights_recom](#121-get_short_term_insights_recom).
 
 #### Request: ####
 
@@ -227,7 +227,7 @@ Same description as [get_short_term_insights_recom](#121-get_long_term_last_minu
 
 ### 1.3.2 get_long_term_last_minute_recom
 
-Same description as [get_short_term_last_minute_recom](#122-get_long_term_last_minute_recom).
+Same description as [get_short_term_last_minute_recom](#122-get_short_term_last_minute_recom).
 
 #### Request: ####
 
