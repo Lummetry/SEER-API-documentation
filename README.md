@@ -17,7 +17,7 @@ Additionally, each API call may have 2 __optional__ parameters:
 | `FILTER_ITEMS` | `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
 | `EXCLUDE_ITEMS` | `list[integer]` | Obfuscated SKUs which will be excluded from recommedations |
 
-Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
+Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET`, `HISTORY` and `USER_ID` which will be detalied wherever they will appear.
 
 Below is defined the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
 | Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `USER_ID` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
@@ -188,7 +188,7 @@ These recommendations are suitable for anonymous users or for new users (that do
 
 ### 1.3 Long-term recommendations
 
-The recommendations in this section are computed given a basket of items (the current one) __and__ a hostory of shopping baskets. The current basket should be specified as value for key __`CURRENT_BASKET`__ and the history should be specified as value for key __`HISTORY`__. Below is found the description of these parameters:
+The recommendations in this section are computed given a basket of items (the current one) __and__ a history of shopping baskets. The current basket should be specified as value for key __`CURRENT_BASKET`__ and the history should be specified as value for key __`HISTORY`__. Below is found the description of these parameters:
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
