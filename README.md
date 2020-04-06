@@ -20,12 +20,16 @@ Additionally, each API call may have 2 __optional__ parameters:
 Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET` and `HISTORY` which will be detalied wherever they will appear.
 
 Below is defined the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
-| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | O | O |
-| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | N/A | N/A | O | O |
-| [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | N/A | N/A | O | O |
-
+| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `USER_ID` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | N/A | O | O |
+| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
+| [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
+| [get_short_term_insights_recom](#121-get_short_term_insights_recom) | R | R | R | N/A | N/A | R | N/A | N/A | O | O |
+| [get_short_term_last_minute_recom](#122-get_short_term_last_minute_recom) | R | R | R | N/A | N/A | R | N/A | N/A | O | O |
+| [get_long_term_insights_recom](#131-get_long_term_insights_recom) | R | R | R | N/A | N/A | R | R | N/A | O | O |
+| [get_long_term_last_minute_recom](#132-get_long_term_last_minute_recom) | R | R | R | N/A | N/A | R | R | N/A | O | O |
+| [get_long_term_next_basket_recom](#133-get_long_term_next_basket_recom) | R | R | N/A | N/A | N/A | N/A | R | R | O | O |
 
 ## 1.1 Single-item recommendations
 
@@ -129,88 +133,25 @@ Returns recommendations with the best matched items from interest categories whi
 }
 ```
 
+### 1.2 Short-term recommendations
 
-### 1.3 get_type1_checkout_bonus_items ###
-
-Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of other items that are very likely to match with the current shopping basket items. (_neural system type 1_)
-
-#### Additional parameters: ####
+The recommendations in this section are computed given a basket of items. The basket should be specified as value for key __`CURRENT_BASKET`__. Below is found the description of the __`CURRENT_BASKET`__ parameter:
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+| `CURRENT_BASKET` | `list[integer]` | Obfuscated SKUs of items found in a shopping basket |
+
+These recommendations are suitable for anonymous users or for new users (that do not have a shopping history).
+
+### 1.2.1 get_short_term_insights_recom
 
 #### Request: ####
 
 ```python
 {
-  "TASK" : "get_type1_checkout_bonus_items",
-  "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [442974, 442973],
-  "NR_ITEMS": 3
-}
-```
-
-#### Response: ####
-```python
-{
-  "BONUS_ITEMS": [454475, 459238, 459239],
-  "SCORES" : [1.0, 1.0, 0.95]
-}
-```
-
-### 1.4 get_type2_checkout_bonus_items ###
-
-Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of other items that are very likely to match with the current shopping basket items. (_neural system type 2_)
-
-#### Additional parameters: ####
-
-| Key | Value type | Value description |
-| :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_ITEMS` | `integer` | The number of items to be recommended at checkout (discounted etc.) |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
-
-#### Request: ####
-
-```python
-{
-  "TASK" : "get_type2_checkout_bonus_items",
-  "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [442974, 442973],
-  "NR_ITEMS": 3
-}
-```
-
-#### Response: ####
-```python
-{
-  "BONUS_ITEMS": [402010, 409228, 424328],
-  "SCORES" : [1.0, 1.0, 0.95]
-}
-```
-
-### 1.5 get_type1_next_sorted_candidates ###
-
-Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of items candidates that are very likely to be the next item in that shopping session. (_neural system type 1_)
-
-#### Additional parameters: ####
-
-| Key | Value type | Value description |
-| :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_ITEMS` | `integer` | The number of item candidates |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
-
-#### Request: ####
-
-```python
-{
-  "TASK": "get_type1_next_sorted_candidates",
+  "TASK": "get_short_term_insights_recom",
   "MAP_ID": "20200314_162354",
-  "ITEMS_LIST": [442974, 442973],
+  "CURRENT_BASKET": [442974, 442973],
   "NR_ITEMS": 3
 }
 ```
@@ -218,30 +159,20 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "CANDIDATES": [402010, 409228, 424328],
-  "SCORES" : [1.0, 0.98, 0.95]
+  "ITEMS": [402010, 409228, 424328],
+  "SCORES" : [1.0, 0.995, 0.99]
 }
 ```
 
-### 1.6 get_type2_next_sorted_candidates ###
-
-Given a basket (list of items) that are bought by an end customer in a shopping session (online / offline), the API call returns a list of items candidates that are very likely to be the next item in that shopping session. (_neural system type 2_)
-
-#### Additional parameters: ####
-
-| Key | Value type | Value description |
-| :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_ITEMS` | `integer` | The number of item candidates |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+### 1.2.2 get_short_term_last_minute_recom
 
 #### Request: ####
 
 ```python
 {
-  "TASK": "get_type2_next_sorted_candidates",
+  "TASK": "get_short_term_last_minute_recom",
   "MAP_ID": "20200314_162354",
-  "ITEMS_LIST": [442974, 442973],
+  "CURRENT_BASKET": [442974, 442973, 981354],
   "NR_ITEMS": 3
 }
 ```
@@ -249,86 +180,99 @@ Given a basket (list of items) that are bought by an end customer in a shopping 
 #### Response: ####
 ```python
 {
-  "CANDIDATES": [402010, 409228, 424328],
-  "SCORES" : [1.0, 0.98, 0.95]
+  "ITEMS": [901345, 8924442, 424328],
+  "SCORES" : [1.0, 0.995, 0.99]
 }
 ```
 
-### 1.7 get_type1_baskets_options ###
 
-This API call returns the most probable `NR_BASKETS` shopping baskets starting from the current basket (_next baskets exploration with neural system type 1_)
+### 1.3 Long-term recommendations
 
-#### Additional parameters: ####
+The recommendations in this section are computed given a basket of items (the current one) __and__ a hostory of shopping baskets. The current basket should be specified as value for key __`CURRENT_BASKET`__ and the history should be specified as value for key __`HISTORY`__. Below is found the description of these parameters:
 
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_BASKETS` | `integer` | The number of next baskets to be explored |
-| `NR_ITEMS` | `integer` | The number of items per each next basket |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+| `CURRENT_BASKET` | `list[integer]` | Obfuscated SKUs of items found in the current shopping basket |
+| `HISTORY` | `list[list[integer]]` | Obfuscated SKUs of items found in past shopping baskets | 
+
+These recommendations are suitable for users that do have a shopping history.
+
+### 1.3.1 get_long_term_insights_recom
 
 #### Request: ####
 
 ```python
 {
-  "TASK" : "get_type1_baskets_options",
-  "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [442974, 442973],
-  "NR_BASKETS": 3,
-  "NR_ITEMS": 5
+  "TASK": "get_long_term_insights_recom",
+  "MAP_ID": "20200314_162354",
+  "CURRENT_BASKET": [442974, 442973],
+  "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]],
+  "NR_ITEMS": 3
 }
 ```
 
 #### Response: ####
-
 ```python
 {
-  "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
-                      [383569, 427584, 414357, 414449, 379605],
-                      [454475, 414649, 447118, 359329, 329911]],
-  "SCORES" : [[1.0, 1.0, 0.97, 1.0, 1.0],
-              [0.96, 0.87, 1.0, 1.0, 1.0],
-              [0.94, 1.0, 1.0, 1.0, 0.88]]
+  "ITEMS": [8935335, 8392233, 4548222],
+  "SCORES" : [0.98, 0.95, 0.945]
 }
 ```
 
-### 1.8 get_type2_baskets_options ###
-
-This API call returns the most probable `NR_BASKETS` shopping baskets starting from the current basket (_next baskets exploration with neural system type 2_)
-
-#### Additional parameters: ####
-
-| Key | Value type | Value description |
-| :--- | :--- | :--- |
-| `ITEMS_LIST` | `list[integer]` | Obfuscated SKUs that are bought in a shopping session |
-| `NR_BASKETS` | `integer` | The number of next baskets to be explored |
-| `NR_ITEMS` | `integer` | The number of items per each next basket |
-| `FILTER_ITEMS` | [optional] `list[integer]` | Obfuscated SKUs from which the recommedations will be chosen |
+### 1.3.2 get_long_term_last_minute_recom
 
 #### Request: ####
 
 ```python
 {
-  "TASK" : "get_type2_baskets_options",
-  "MAP_ID" : "20200314_162354",
-  "ITEMS_LIST" : [442974, 442973],
-  "NR_BASKETS": 3,
-  "NR_ITEMS": 5
+  "TASK": "get_long_term_insights_recom",
+  "MAP_ID": "20200314_162354",
+  "CURRENT_BASKET": [442974, 442973, 981354],
+  "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]],
+  "NR_ITEMS": 3
 }
 ```
 
 #### Response: ####
+```python
+{
+  "ITEMS": [901345, 8924442, 424328],
+  "SCORES" : [0.97, 0.932, 0.90]
+}
+```
+
+
+### 1.3.3 get_long_term_next_basket_recom
+
+Additional to [get_long_term_insights_recom](#131-get_long_term_insights_recom) and [get_long_term_last_minute_recom](#132-get_long_term_last_minute_recom), that do not take into account the user identity, this recommendations type is user-specific. More detalied, this is a functionality that predicts the next basket of a specific user and therefore, the prediction can be used as content for email newsletter or as content for "welcome page" when the user logs in again in the platform.
+
+Below is found the description of the __`USER_ID`__ parameter:
+
+| Key | Value type | Value description |
+| :--- | :--- | :--- |
+| `USER_ID` | `integer` | Obfuscated user ID for which the recommendations are computed |
+
+
+### Request: ###
 
 ```python
 {
-  "BASKETS_OPTIONS": [[402010, 409228, 424328, 372808, 500494],
-                      [383569, 427584, 414357, 414449, 379605],
-                      [454475, 414649, 447118, 359329, 329911]],
-  "SCORES" : [[1.0, 1.0, 0.97, 1.0, 1.0],
-              [0.96, 0.87, 1.0, 1.0, 1.0],
-              [0.94, 1.0, 1.0, 1.0, 0.88]]
+  "TASK": "get_long_term_insights_recom",
+  "MAP_ID": "20200314_162354",
+  "USER_ID": 6712,
+  "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]]
 }
 ```
+
+### Response: ###
+```python
+{
+  "ITEMS": [909344, 823894, 8843434, 2737544],
+  "SCORES" : [0.97, 0.932, 0.90]
+}
+```
+
+The number of response `ITEMS` can be variable from a prediction to another, because the model predicts the next basket.
 
 
 ## 2. Category Interests API ##
