@@ -7,8 +7,8 @@ LENS Product Explorer is a multi-purpose system that targets retail and distribu
 Each API call has 3 __required__ parameters:
 | Key | Value type | Value description |
 | :--- | :--- | :--- |
-| `TASK` | `string` | The task definition |
-| `MAP_ID` | `string` | A string that identifies the map |
+| `RECOM_TYPE` | `string` | The entry-point name of the recommendation type|
+| `CONTEXT_ID` | `string` | A string that identifies the context (a location in a season, for example) |
 | `NR_ITEMS` | `integer` | The number of items to be recommended |
 
 Additionally, each API call may have 2 __optional__ parameters:
@@ -20,7 +20,7 @@ Additionally, each API call may have 2 __optional__ parameters:
 Finally, for each recommendation type may appear parameters such as `START_ITEMS`, `NR_INTERESTS`, `CURRENT_BASKET`, `HISTORY` and `USER_ID` which will be detalied wherever they will appear.
 
 Below is defined the parameters summary table. It specifies for each recommendation type, which parameters are __required (R)__, which are __optional (O)__ and which are __not applicable (N/A)__:  
-| Recom | `TASK` | `MAP_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `USER_ID` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
+| Recom | `RECOM_TYPE` | `CONTEXT_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `USER_ID` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | N/A | O | O |
 | [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
@@ -47,8 +47,8 @@ Returns recommendations with the best matched items from the same interest categ
 
 ```python
 {
-  "TASK" : "get_same_interest_recom",
-  "MAP_ID" : "20200314_162354",
+  "RECOM_TYPE" : "get_same_interest_recom",
+  "CONTEXT_ID" : "20200314_162354",
   "START_ITEMS" : [512762],
   "NR_ITEMS" : 10
 }
@@ -75,8 +75,8 @@ Returns recommendations with the best matched items from interest categories whi
 
 ```python
 {
-  "TASK" : "get_near_interest_recom",
-  "MAP_ID" : "20200314_162354",
+  "RECOM_TYPE" : "get_near_interest_recom",
+  "CONTEXT_ID" : "20200314_162354",
   "START_ITEMS": [512762, 673224],
   "NR_ITEMS": 2,
   "NR_INTERESTS": 3
@@ -111,8 +111,8 @@ Returns recommendations with the best matched items from interest categories whi
 
 ```python
 {
-  "TASK" : "get_near_interest_recom",
-  "MAP_ID" : "20200314_162354",
+  "RECOM_TYPE" : "get_near_interest_recom",
+  "CONTEXT_ID" : "20200314_162354",
   "START_ITEMS": [512762, 673224],
   "NR_ITEMS": 2,
   "NR_INTERESTS": 3
@@ -145,12 +145,14 @@ These recommendations are suitable for anonymous users or for new users (that do
 
 ### 1.2.1 get_short_term_insights_recom
 
+Starting from the current shopping basket, the neural model returns 1 or more items which are considered to be most suited to be bought together with the current items in the shopping basket. The name of this recommendation type is "insights" because, probably, the user does not know "consciously" what might want to buy and then, the system cames to help him, giving insights.
+
 #### Request: ####
 
 ```python
 {
-  "TASK": "get_short_term_insights_recom",
-  "MAP_ID": "20200314_162354",
+  "RECOM_TYPE": "get_short_term_insights_recom",
+  "CONTEXT_ID": "20200314_162354",
   "CURRENT_BASKET": [442974, 442973],
   "NR_ITEMS": 3
 }
@@ -166,12 +168,14 @@ These recommendations are suitable for anonymous users or for new users (that do
 
 ### 1.2.2 get_short_term_last_minute_recom
 
+At checkout, the system shows one or more “last-minute” items which are the most suited to be bought with the current shopping basket.
+
 #### Request: ####
 
 ```python
 {
-  "TASK": "get_short_term_last_minute_recom",
-  "MAP_ID": "20200314_162354",
+  "RECOM_TYPE": "get_short_term_last_minute_recom",
+  "CONTEXT_ID": "20200314_162354",
   "CURRENT_BASKET": [442974, 442973, 981354],
   "NR_ITEMS": 3
 }
@@ -199,12 +203,14 @@ These recommendations are suitable for users that do have a shopping history.
 
 ### 1.3.1 get_long_term_insights_recom
 
+Same description as [get_short_term_insights_recom](#121-get_long_term_last_minute_recom).
+
 #### Request: ####
 
 ```python
 {
-  "TASK": "get_long_term_insights_recom",
-  "MAP_ID": "20200314_162354",
+  "RECOM_TYPE": "get_long_term_insights_recom",
+  "CONTEXT_ID": "20200314_162354",
   "CURRENT_BASKET": [442974, 442973],
   "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]],
   "NR_ITEMS": 3
@@ -221,12 +227,14 @@ These recommendations are suitable for users that do have a shopping history.
 
 ### 1.3.2 get_long_term_last_minute_recom
 
+Same description as [get_short_term_last_minute_recom](#122-get_long_term_last_minute_recom).
+
 #### Request: ####
 
 ```python
 {
-  "TASK": "get_long_term_insights_recom",
-  "MAP_ID": "20200314_162354",
+  "RECOM_TYPE": "get_long_term_insights_recom",
+  "CONTEXT_ID": "20200314_162354",
   "CURRENT_BASKET": [442974, 442973, 981354],
   "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]],
   "NR_ITEMS": 3
@@ -257,8 +265,8 @@ Below is found the description of the __`USER_ID`__ parameter:
 
 ```python
 {
-  "TASK": "get_long_term_insights_recom",
-  "MAP_ID": "20200314_162354",
+  "RECOM_TYPE": "get_long_term_insights_recom",
+  "CONTEXT_ID": "20200314_162354",
   "USER_ID": 6712,
   "HISTORY" : [[894556], [298244, 345854], [29445, 2835445, 9355422], [385534]]
 }
