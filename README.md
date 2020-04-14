@@ -468,7 +468,7 @@ Returns all the outliers of a category. Specifically, the outliers are all the i
 
 The reponse contains a list all obfuscated SKUs that are identified as category outliers.
 
-## Business Intelligence tool ##
+## 3. Business Intelligence tool ##
 
 #### Request ####
 
@@ -523,55 +523,55 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 
 ##### groupby field: list  #####
 
-###### per_day ######
+##### per_day #####
     Applies group_by timestamp with a frequency of one day
 
-###### per_hour ######
+##### per_hour #####
     Applies group_by timestamp with a frequency of one hour
 
-###### per_month ######
+##### per_month #####
     Applies group by timestamp with a frequency of one month
 
-###### per_site ######
+##### per_site #####
     Applies group by site_id
 
-###### per_need ######
+##### per_need #####
     Applies group by need_id
 
-###### per_item ######
+##### per_item #####
     Applies group by item_id
 
-###### per_category ######
+##### per_category #####
     Applies group by category_id    
 
 ##### filter field: list(dict)  #####
     The filter is applied using 'and' logic
     
-###### site: [site_id1, site_id2 ...] ######
+##### site: [site_id1, site_id2 ...] #####
     Only the data from the mentioned site ids list is used
 
-###### start_year: int ######
+##### start_year: int #####
     Only the data later than the start year is used
 
-###### end_year: int ######
+##### end_year: int #####
     Only the data earlier than the start year is used
 
-###### start_month: int{0:11} ######
+##### start_month: int{0:11} #####
     Only the data with the month > start_month is used
 
-###### end_month: int{0:11} ######
+##### end_month: int{0:11} #####
     Only the data with the month < start_month is used
 
-###### item: list(int) [item_id1, item_id2, …] ######
+##### item: list(int) [item_id1, item_id2, …] #####
     Only the data from the mentioned item ids list is used
 
-###### need: list(int) [need_id1, need_id2 ...] ######
+##### need: list(int) [need_id1, need_id2 ...] #####
     Only the data from the mentioned need ids list is used
 
-###### category: list(int) [category_id1, category_id2 …] ######
+##### category: list(int) [category_id1, category_id2 …] #####
     Only the data from the mentioned category ids list is used
 
-###### start_date and no_days: ######
+##### start_date and no_days: #####
     Only applicable if start_date and no_days are used together. Used for seasonal filtering
   Start_date :{
       month: int {0:11} 
