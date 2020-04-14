@@ -523,60 +523,31 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 
 ##### groupby field: list  #####
 
-##### per_day #####
-    Applies group_by timestamp with a frequency of one day
-
-##### per_hour #####
-    Applies group_by timestamp with a frequency of one hour
-
-##### per_month #####
-    Applies group by timestamp with a frequency of one month
-
-##### per_site #####
-    Applies group by site_id
-
-##### per_need #####
-    Applies group by need_id
-
-##### per_item #####
-    Applies group by item_id
-
-##### per_category #####
-    Applies group by category_id    
+| Field  | Field_description |
+| per_day | Applies group_by timestamp with a frequency of one day |
+| per_hour | Applies group_by timestamp with a frequency of one hour |
+| per_month | Applies group by timestamp with a frequency of one month |
+| per_site | Applies group by site_id |
+| per_need | Applies group by need_id |
+| per_item | Applies group by item_id |
+| per_category | Applies group by category_id |
 
 ##### filter field: list(dict)  #####
     The filter is applied using 'and' logic
-    
-##### site: [site_id1, site_id2 ...] #####
-    Only the data from the mentioned site ids list is used
-
-##### start_year: int #####
-    Only the data later than the start year is used
-
-##### end_year: int #####
-    Only the data earlier than the start year is used
-
-##### start_month: int{0:11} #####
-    Only the data with the month > start_month is used
-
-##### end_month: int{0:11} #####
-    Only the data with the month < start_month is used
-
-##### item: list(int) [item_id1, item_id2, …] #####
-    Only the data from the mentioned item ids list is used
-
-##### need: list(int) [need_id1, need_id2 ...] #####
-    Only the data from the mentioned need ids list is used
-
-##### category: list(int) [category_id1, category_id2 …] #####
-    Only the data from the mentioned category ids list is used
-
-##### start_date and no_days: #####
-    Only applicable if start_date and no_days are used together. Used for seasonal filtering
+ | Field | Value_type | Field_description | 
+ | site: | list(int) [site_id1, site_id2 ...] | Only the data from the mentioned site ids list is used |
+ | start_year | int | Only the data later than the start year is used |
+ | end_year | int | Only the data earlier than the start year is used |
+ | start_month | int{0:11} | Only the data with the month > start_month is used |
+ | end_month | int{0:11} | Only the data with the month < start_month is used |
+ | item | list(int) [item_id1, item_id2, …] | Only the data from the mentioned item ids list is used |
+ | need | list(int) [need_id1, need_id2 ...] | Only the data from the mentioned need ids list is used |
+ | category | list(int) [category_id1, category_id2 …] | Only the data from the mentioned category ids list is used |
+ | start_date and no_days: | | Only applicable if start_date and no_days are used together. Used for seasonal filtering |
   Start_date :{
       month: int {0:11} 
       day: int {0:30}
-}
+
     Specifies the start date of the season
   No_days: int
     Specifies the number of days the season lasts
