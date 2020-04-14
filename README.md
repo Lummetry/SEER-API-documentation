@@ -523,7 +523,7 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 
 ##### groupby field: list  #####
 
-| Field  | Field_description |
+| Field    | Field_description    |
 | per_day | Applies group_by timestamp with a frequency of one day |
 | per_hour | Applies group_by timestamp with a frequency of one hour |
 | per_month | Applies group by timestamp with a frequency of one month |
@@ -534,8 +534,8 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 
 ##### filter field: list(dict)  #####
     The filter is applied using 'and' logic
- | Field | Value_type | Field_description | 
- | site: | list(int) [site_id1, site_id2 ...] | Only the data from the mentioned site ids list is used |
+ | Field    | Value_type    | Field_description    | 
+ | site | list(int) [site_id1, site_id2 ...] | Only the data from the mentioned site ids list is used |
  | start_year | int | Only the data later than the start year is used |
  | end_year | int | Only the data earlier than the start year is used |
  | start_month | int{0:11} | Only the data with the month > start_month is used |
