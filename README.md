@@ -547,7 +547,14 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
  | category | list(int) [category_id1, category_id2 …] | Only the data from the mentioned category ids list is used |
  | Start_date :{  'month',  'day'  }| dict(  'month': int{0:11},  'day':int  ) |Specifies the start date of the season. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
  |  No_days | int | Specifies the number of days the season lasts. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
+ 
+ ##### plot: int{0,1} #####
+   Specifies if a base64 encoded png of the plot is to be returned
    
+ #### Response ####
+ 
+  It returns the 8 most sold entities and their respective percentage of the total number of sells (defined by the group by parameters), or the entities the form 80% of the sales. The remaining entities are grouped into a field named ‘other-x’ where is x the number of remaining entities
+
  
 
 
