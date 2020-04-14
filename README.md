@@ -467,3 +467,121 @@ Returns all the outliers of a category. Specifically, the outliers are all the i
 ```
 
 The reponse contains a list all obfuscated SKUs that are identified as category outliers.
+
+## Business Intelligence tool ##
+
+#### Request ####
+
+``` python
+{
+      'groupby':['per_need', ‘per_month’],
+      'filters':[
+        {
+          'start_year':'2015',
+          'start_date':{
+              'month':'4',
+              'day':'10'
+           },
+           'no_days':'10'
+        },
+        {
+              'category':['1'] 
+        },
+      ]
+      'plot':0,
+}
+```
+
+#### Response ####
+``` python
+[
+  {'data':[
+    {'TimeStamp': '2019-04', 'needs_id': '1', 'percent': 0.19}, 
+    {'TimeStamp': '2018-04', 'needs_id': '1', 'percent': 0.15},
+    {'TimeStamp': '2020-04', 'needs_id': '1', 'percent': 0.12},
+    {'TimeStamp': '2017-04', 'needs_id': '1', 'percent': 0.09},
+    {'TimeStamp': '2016-04', 'needs_id': '1', 'percent': 0.05},
+    {'TimeStamp': '2019-04', 'needs_id': '0', 'percent': 0.05}, 
+    {'TimeStamp': '2018-04', 'needs_id': '0', 'percent': 0.04}, 
+    {'TimeStamp': '2019-04', 'needs_id': '2', 'percent': 0.03}, 
+    {'other-116': 0.28}],
+   'plot': ''}, 
+  {'data': [
+    {'TimeStamp': '2020-03', 'needs_id': '1', 'percent': 0.05}, 
+    {'TimeStamp': '2019-12', 'needs_id': '1', 'percent': 0.05},
+    {'TimeStamp': '2019-11', 'needs_id': '1', 'percent': 0.05}, 
+    {'TimeStamp': '2020-01', 'needs_id': '1', 'percent': 0.04}, 
+    {'TimeStamp': '2018-12', 'needs_id': '1', 'percent': 0.04}, 
+    {'TimeStamp': '2020-02', 'needs_id': '1', 'percent': 0.03}, 
+    {'TimeStamp': '2018-11', 'needs_id': '1', 'percent': 0.03}, 
+    {'TimeStamp': '2020-04', 'needs_id': '1', 'percent': 0.03}, 
+    {'other-44': 0.6799999999999999}], '
+  plot': ''}
+]
+```
+#### Request Parameters ####
+
+##### groupby field: list  #####
+
+###### per_day ######
+    Applies group_by timestamp with a frequency of one day
+
+###### per_hour ######
+    Applies group_by timestamp with a frequency of one hour
+
+###### per_month ######
+    Applies group by timestamp with a frequency of one month
+
+###### per_site ######
+    Applies group by site_id
+
+###### per_need ######
+    Applies group by need_id
+
+###### per_item ######
+    Applies group by item_id
+
+###### per_category ######
+    Applies group by category_id    
+
+##### filter field: list(dict)  #####
+    The filter is applied using 'and' logic
+    
+###### site: [site_id1, site_id2 ...] ######
+    Only the data from the mentioned site ids list is used
+
+###### start_year: int ######
+    Only the data later than the start year is used
+
+###### end_year: int ######
+    Only the data earlier than the start year is used
+
+###### start_month: int{0:11} ######
+    Only the data with the month > start_month is used
+
+###### end_month: int{0:11} ######
+    Only the data with the month < start_month is used
+
+###### item: list(int) [item_id1, item_id2, …] ######
+    Only the data from the mentioned item ids list is used
+
+###### need: list(int) [need_id1, need_id2 ...] ######
+    Only the data from the mentioned need ids list is used
+
+###### category: list(int) [category_id1, category_id2 …] ######
+    Only the data from the mentioned category ids list is used
+
+###### start_date and no_days: ######
+    Only applicable if start_date and no_days are used together. Used for seasonal filtering
+  Start_date :{
+      month: int {0:11} 
+      day: int {0:30}
+}
+    Specifies the start date of the season
+  No_days: int
+    Specifies the number of days the season lasts
+   
+ 
+
+
+
