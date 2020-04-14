@@ -536,7 +536,7 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 ##### filter field: list(dict)  #####
     The filter is applied using 'and' logic
  | Field    | Value_type    | Field_description    | 
- | :--- | :--- | :--- |
+ | :---------- | :---------- | :--- |
  | site | list(int) [site_id1, site_id2 ...] | Only the data from the mentioned site ids list is used |
  | start_year | int | Only the data later than the start year is used |
  | end_year | int | Only the data earlier than the start year is used |
@@ -545,7 +545,7 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
  | item | list(int) [item_id1, item_id2, …] | Only the data from the mentioned item ids list is used |
  | need | list(int) [need_id1, need_id2 ...] | Only the data from the mentioned need ids list is used |
  | category | list(int) [category_id1, category_id2 …] | Only the data from the mentioned category ids list is used |
- | Start_date :{  'month',  'day',  }| dict('month': int{0:11}, 'day':int) |Specifies the start date of the season. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
+ | Start_date :{  'month',  'day'  }| dict(  'month': int{0:11},  'day':int  ) |Specifies the start date of the season. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
  |  No_days | int | Specifies the number of days the season lasts. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
    
  
