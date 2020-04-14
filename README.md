@@ -470,58 +470,14 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 
 ## 3. Business Intelligence tool ##
 
-#### Request ####
+The business intelligence API allows the user to view what are the most sold items or groups of items (such as categories or needs) or the most succesfull time periods. 
 
-``` python
-{
-      'groupby':['per_need', ‘per_month’],
-      'filters':[
-        {
-          'start_year':'2015',
-          'start_date':{
-              'month':'4',
-              'day':'10'
-           },
-           'no_days':'10'
-        },
-        {
-              'category':['1'] 
-        },
-      ]
-      'plot':0,
-}
-```
 
-#### Response ####
-``` python
-[
-  {'data':[
-    {'TimeStamp': '2019-04', 'needs_id': '1', 'percent': 0.19}, 
-    {'TimeStamp': '2018-04', 'needs_id': '1', 'percent': 0.15},
-    {'TimeStamp': '2020-04', 'needs_id': '1', 'percent': 0.12},
-    {'TimeStamp': '2017-04', 'needs_id': '1', 'percent': 0.09},
-    {'TimeStamp': '2016-04', 'needs_id': '1', 'percent': 0.05},
-    {'TimeStamp': '2019-04', 'needs_id': '0', 'percent': 0.05}, 
-    {'TimeStamp': '2018-04', 'needs_id': '0', 'percent': 0.04}, 
-    {'TimeStamp': '2019-04', 'needs_id': '2', 'percent': 0.03}, 
-    {'other-116': 0.28}],
-   'plot': ''}, 
-  {'data': [
-    {'TimeStamp': '2020-03', 'needs_id': '1', 'percent': 0.05}, 
-    {'TimeStamp': '2019-12', 'needs_id': '1', 'percent': 0.05},
-    {'TimeStamp': '2019-11', 'needs_id': '1', 'percent': 0.05}, 
-    {'TimeStamp': '2020-01', 'needs_id': '1', 'percent': 0.04}, 
-    {'TimeStamp': '2018-12', 'needs_id': '1', 'percent': 0.04}, 
-    {'TimeStamp': '2020-02', 'needs_id': '1', 'percent': 0.03}, 
-    {'TimeStamp': '2018-11', 'needs_id': '1', 'percent': 0.03}, 
-    {'TimeStamp': '2020-04', 'needs_id': '1', 'percent': 0.03}, 
-    {'other-44': 0.6799999999999999}], '
-  plot': ''}
-]
-```
 #### Request Parameters ####
 
 ##### groupby field: list  #####
+
+The user specifies in the groupby field in what manner the segmentation will be done. For exmaple if the user wants to request the most sold items then he will add *per_item* in the grouby field. If he wants the most successful month he will use *per_month* in the groupby field. The API also allows multiple parameters in the groupby field in order to group the items by more than one criteria. For example if the groupby field will containt *['per_item', 'per_month']* the API will return the product that was sold the most in a span on 1 month and which month that happened.
 
 | Field    | Field_description    |
 | :--- | :--- | 
@@ -534,7 +490,11 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
 | per_category | Applies group by category_id |
 
 ##### filter field: list(dict)  #####
-    The filter is applied using 'and' logic
+
+The API also has a function to filter the data taken in consideration. It allows for multiple filter configurations (as a dictionary list) to be sent in the request. The API will return one snapshot for each configuration sent in the filter list.
+
+The field allows to select from a subset of items or groups of items, or from a time specified time interval. For example if the user wants to use only date from 2018 onwards, he will use *{'start_year': 2018}*, or to see only items from the categories with the ids 1,2,3 he will add to the filter *'categories':[1,2,3]*. The API supports also a seasonal time filter (see the filter field description). If there are more then 1 filter specified the API will take in consideration the intersection of all the filters. For example if the user filters with categories [1,2,3] and earlier than 2018, the API will only aggragate data from 2018 onwards and items from categories [1,2,3]
+
  | Field    | Value_type    | Field_description    | 
  | :---------- | :---------- | :--- |
  | site | list(int) [site_id1, site_id2 ...] | Only the data from the mentioned site ids list is used |
@@ -549,12 +509,92 @@ The reponse contains a list all obfuscated SKUs that are identified as category 
  |  No_days | int | Specifies the number of days the season lasts. *Only applicable if start_date and no_days are used together. Used for seasonal filtering* |
  
  ##### plot: int{0,1} #####
-   Specifies if a base64 encoded png of the plot is to be returned
-   
+   Specifies if a base64 encoded pieplot as a visualisation of the data is to be returned
+  
+ ##### Request example #####
+  
+``` python
+{
+  'groupby': ['per_category', 'per_month'],
+  'filters': [{
+      'start_year': '2018',
+      'need': ['0', '1', '2', '3']
+    },
+    {
+      'category': ['1', '2', '3', '4', '5', '6', '7', '8'],
+      'start_year': '2020'
+    },
+  ],
+  'plot': '0',
+}
+``` 
+  
  #### Response ####
  
-  It returns the 8 most sold entities and their respective percentage of the total number of sells (defined by the group by parameters), or the entities the form 80% of the sales. The remaining entities are grouped into a field named ‘other-x’ where is x the number of remaining entities
+  It returns a list of snapshots, one for each filter dictionary sent in the request. Each snapshots contains the items or the group of items that amounted to 80% of the sales (or if there are too many it will return only the top 8 most sold). Each datapoint will contain the group by parameters, and the percent of the sales it represents. In addition if the plot parameter was set to true, the API will also return a pie plot to visualise the data.
 
+#### Response example ####
+``` python
+[{
+  'data': [{
+    'TimeStamp': '2020-03',
+    'Category': '1',
+    'percent': 0.04
+  }, {
+    'TimeStamp': '2019-11',
+    'Category': '1',
+    'percent': 0.04
+  }, {
+    'TimeStamp': '2019-12',
+    'Category': '1',
+    'percent': 0.04
+  }, {
+    'TimeStamp': '2018-12',
+    'Category': '1',
+    'percent': 0.04
+  }, {
+    'TimeStamp': '2018-11',
+    'Category': '1',
+    'percent': 0.03
+  }, {
+    'TimeStamp': '2020-01',
+    'Category': '1',
+    'percent': 0.03
+  }, {
+    'TimeStamp': '2020-02',
+    'Category': '1',
+    'percent': 0.03
+  }, {
+    'TimeStamp': '2020-04',
+    'Category': '1',
+    'percent': 0.03
+  }, {
+    'other-660': 0.72
+  }],
+  'plot': ''
+}, {
+  'data': [{
+    'TimeStamp': '2020-03',
+    'Category': '1',
+    'percent': 0.26
+  }, {
+    'TimeStamp': '2020-01',
+    'Category': '1',
+    'percent': 0.21
+  }, {
+    'TimeStamp': '2020-02',
+    'Category': '1',
+    'percent': 0.18
+  }, {
+    'TimeStamp': '2020-04',
+    'Category': '1',
+    'percent': 0.18
+  }, {
+    'other-25': 0.17
+  }],
+  'plot': ''
+}]
+```
  
 
 
