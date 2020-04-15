@@ -481,9 +481,12 @@ The user specifies in the groupby field in what manner the segmentation will be 
 
 | Field    | Field_description    |
 | :--- | :--- | 
-| per_day | Applies group_by timestamp with a frequency of one day |
-| per_hour | Applies group_by timestamp with a frequency of one hour |
-| per_month | Applies group by timestamp with a frequency of one month |
+| per_day | Applies group by day of the months (for example aggregates 3rd days of each month |
+| per_weekday | Applies group by day of the week (for example aggregates Mondays together) |
+| per_month | Applies group by month (for example aggregates Januaries together) |
+| per_hour | Applies group by hour (for example aggregates all sales done at 08:XX o'clock)|
+| per_unique_day | Applies group_by timestamp with a frequency of one day (each different day is treated as a separate entity) |
+| per_unique_month | Applies group by timestamp with a frequency of one month (each different month is treated as a separate entity) |
 | per_site | Applies group by site_id |
 | per_need | Applies group by need_id |
 | per_item | Applies group by item_id |
