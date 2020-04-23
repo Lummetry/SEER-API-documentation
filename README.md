@@ -23,7 +23,7 @@ Below is defined the parameters summary table. It specifies for each recommendat
 | Recom | `RECOM_TYPE` | `CONTEXT_ID` | `NR_ITEMS` | `START_ITEMS` | `NR_INTERESTS` | `CURRENT_BASKET` | `HISTORY` | `USER_ID` | `FILTER_ITEMS` | `EXCLUDE_ITEMS` |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [get_same_interest_recom](#111-get_same_interest_recom) | R | R | R | R | N/A | N/A | N/A | N/A | O | O |
-| [get_near_interest_recom](#112-get_near_interest_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
+| [get_neighbour_interests_recom](#112-get_neighbour_interests_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
 | [get_complementary_interests_recom](#113-get_complementary_interests_recom) | R | R | R | R | R | N/A | N/A | N/A | O | O |
 | [get_short_term_insights_recom](#121-get_short_term_insights_recom) | R | R | R | N/A | N/A | R | N/A | N/A | O | O |
 | [get_short_term_last_minute_recom](#122-get_short_term_last_minute_recom) | R | R | R | N/A | N/A | R | N/A | N/A | O | O |
@@ -61,7 +61,7 @@ Returns recommendations with the best matched items from the same interest categ
 }
 ```
 
-### 1.1.2 get_near_interest_recom ###
+### 1.1.2 get_neighbour_interests_recom ###
 
 Returns recommendations with the best matched items from interest categories which are in the neighborhood of the interest category of the starting item.
 
@@ -75,7 +75,7 @@ Returns recommendations with the best matched items from interest categories whi
 
 ```python
 {
-  "RECOM_TYPE" : "get_near_interest_recom",
+  "RECOM_TYPE" : "get_neighbour_interests_recom",
   "CONTEXT_ID" : "20200314_162354",
   "START_ITEMS": [512762, 673224],
   "NR_ITEMS": 2,
