@@ -536,6 +536,31 @@ The field allows to select from a subset of items or groups of items, or from a 
  
   It returns a list of snapshots, one for each filter dictionary sent in the request. Each snapshots contains the items or the group of items that amounted to 80% of the sales (or if there are too many it will return only the top 8 most sold). Each datapoint will contain the group by parameters, and the percent of the sales it represents. In addition if the plot parameter was set to true, the API will also return a pie plot to visualise the data.
 
+  In order to customize the percent threshold of the sales, or the number of items the client can add the parameters *thrs* and *max_items* respectively.
+  
+ | Field    | Value_type    | Field_description    | 
+ | :---------- | :---------- | :--- |
+ | thrs | float{0:1} | Percernt of the sales totaled by the returned items |
+ | max_items | int | maximum amount of items returned |
+  
+ #### Request example ####
+``` python 
+ {
+  'groupby': ['per_category', 'per_month'],
+  'filters': [{
+      'start_year': '2018',
+      'need': ['0', '1', '2', '3']
+    },
+    {
+      'category': ['1', '2', '3', '4', '5', '6', '7', '8'],
+      'start_year': '2020'
+    },
+  ],
+  'thrs': '0.8',
+  'max_items': '8',
+  'plot': '0',
+}
+```
 #### Response example ####
 ``` python
 [{
@@ -598,6 +623,24 @@ The field allows to select from a subset of items or groups of items, or from a 
   'plot': ''
 }]
 ```
+
+ #### Cacheing ####
+ The API implements a caching mechanism. For filter-groupby configurations that are used frequently, the user can opt to cache the data in order to speed up the response. In order to request a cache a configuration the request needs to add the *mode* parameter with value 1. All the subsequent requests with the cached parameters will use the cached data and will vastly improuve the response time.
+ 
+ #### Request example ####
+ ```Python
+ {
+  'groupby': ['per_category', 'per_month'],
+  'filters': [{
+      'start_year': '2018',
+      'need': ['0', '1', '2', '3']
+    },
+  ],
+  'plot': '0',
+  'mode': '1',
+}
+ ```
+ 
  
 
 
