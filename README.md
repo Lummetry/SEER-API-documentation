@@ -10,10 +10,6 @@ Each API call has 3 __required__ parameters:
 | `RECOM_TYPE` | `string` | The entry-point name of the recommendation type |
 | `CONTEXT_ID` | `string` | A string that identifies the context (a location in a season, for example) |
 | `NR_ITEMS` | `integer` | The number of items to be recommended |
-| `TARGET_ITEM` | `integer` | Obfuscated SKU of target item |
-| `CURRENT_BASKET` | `list[integer]` | Obfuscated SKUs of items found in a shopping basket |
-| `HISTORY` | `list[list[integer]]` | Obfuscated SKUs of items found in past shopping baskets |
-| `USER_ID` | `integer` | Obfuscated user ID for which the recommendations are computed |
 
 Additionally, each API call may have 2 __optional__ parameters:
 | Key | Value type | Value description |
