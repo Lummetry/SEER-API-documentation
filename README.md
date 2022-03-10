@@ -94,54 +94,56 @@ Single endpoint for `POST` requests: `http://<ip_address_to_be_provided>/product
      ]
      ```
      
+     The single purpose of this field is when the center of each cluster should be drawn on the map. Otherwise, it can be discarded.
+     
      _Properties of the list:_ 
      1. The number of elements in the list is equal to the number of the generated clusters (i.e. `len(response["INTERESTS_CENTERS"]) == df['InterestId'].max()+1`)
      2. Each element in the list is a list with 3 objects: x, y, and id of the cluster.
      3. The ids of the clusters (found on the 3rd object of each list element) are identical to the ones found in the table on the `"InterestId"` column
 
-   
-     _Info:_ 
-     ```python
-     From our experience, the easiest way to integrate the map in a website is using bokeh: https://docs.bokeh.org/en/latest/docs/user_guide/bokehjs.html
-     ```
+    
+   _Info:_ 
+   ```python
+   From our experience, the easiest way to integrate the map in a website is using bokeh: https://docs.bokeh.org/en/latest/docs/user_guide/bokehjs.html
+   ```
      
-     _Code snippet for rendering a map in python:_
-     ```python
-     from bokeh.plotting import figure
-     from bokeh.models import ColumnDataSource, HoverTool,\
-       BoxZoomTool, ResetTool, WheelZoomTool, PanTool,\
-       Arrow, VeeHead, CustomJS, Label, LassoSelectTool, Slider
-     from bokeh.models.widgets import TableColumn, DataTable, TextEditor,\
-       Button, MultiSelect
-  
-     HEIGHT = ...
-     WIDTH = ...
+   _Code snippet for rendering a map in python:_
+   ```python
+   from bokeh.plotting import figure
+   from bokeh.models import ColumnDataSource, HoverTool,\
+     BoxZoomTool, ResetTool, WheelZoomTool, PanTool,\
+     Arrow, VeeHead, CustomJS, Label, LassoSelectTool, Slider
+   from bokeh.models.widgets import TableColumn, DataTable, TextEditor,\
+     Button, MultiSelect
 
-     source_data =  dict(x=[], y=[], color=[], name=[], item_id=[], interest_id=[])
-     source_data["x"] = df["X"].values
-     source_data["y"] = df["Y"].values
-     source_data["color"] = compute_colors(df["InterestId"].values)
-     source_data["name"] = get_names(df["ItemId"].values)
-     source_data["item_id"] = df["ItemId"].values
-     source_data["interest_id"] = df["InterestId"].values
-  
-     tooltips = [("Nume", "@name"), ("ItemId", "@item_id"), ("Category", "@interest_id")]
-     source = ColumnDataSource(data=source_data)
-     p = figure(
-       plot_height=HEIGHT,
-       plot_width=WIDTH,
-       title="",
-       tools=[BoxZoomTool(), WheelZoomTool(), ResetTool(), PanTool(), LassoSelectTool()]
-     )
-     p_scatter = p.scatter(
-       x="x", y="y", source=source,
-       radius = 0.25,
-       color="color", line_color = None
-     )
-     hover = HoverTool(tooltips=tooltips, renderers=[p_scatter])
-     p.add_tools(hover)
-     ...
-     ```
+   HEIGHT = ...
+   WIDTH = ...
+
+   source_data =  dict(x=[], y=[], color=[], name=[], item_id=[], interest_id=[])
+   source_data["x"] = df["X"].values
+   source_data["y"] = df["Y"].values
+   source_data["color"] = compute_colors(df["InterestId"].values)
+   source_data["name"] = get_names(df["ItemId"].values)
+   source_data["item_id"] = df["ItemId"].values
+   source_data["interest_id"] = df["InterestId"].values
+
+   tooltips = [("Nume", "@name"), ("ItemId", "@item_id"), ("Category", "@interest_id")]
+   source = ColumnDataSource(data=source_data)
+   p = figure(
+     plot_height=HEIGHT,
+     plot_width=WIDTH,
+     title="",
+     tools=[BoxZoomTool(), WheelZoomTool(), ResetTool(), PanTool(), LassoSelectTool()]
+   )
+   p_scatter = p.scatter(
+     x="x", y="y", source=source,
+     radius = 0.25,
+     color="color", line_color = None
+   )
+   hover = HoverTool(tooltips=tooltips, renderers=[p_scatter])
+   p.add_tools(hover)
+   ...
+   ```
      
 * ## A.2\. Adiacent calculus based on the map
   * ### A.2.1\. Get all the items in a certain cluster
