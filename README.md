@@ -162,6 +162,8 @@ After the filtered data is dumped in the view, you can make an API request (`POS
   {
     "TASK" : "train",
     "CONTEXT_ID" : <str: mandatory>, # the id of the map / context
+    "SOURCE_VIEW" : "...",
+    "DST_TABLE" : "..."
   }
   ```
   
