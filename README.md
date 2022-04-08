@@ -1,6 +1,6 @@
 # A. Products maps API #
 
-Single endpoint for `POST` requests: `http://<ip_address_to_be_provided>/product_explorer`
+Single endpoint for `POST` requests: `http://<ip_address_to_be_provided>/analyze`
 
 * ## A.1\. Get products map table
   **Request:**
