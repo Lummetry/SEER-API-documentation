@@ -169,7 +169,7 @@ After the filtered data is dumped in the view, you can make an API request (`POS
   }
   ```
   
-  Observation: The fields `"HOUR"` and `"MINUTE"` are used to schedule the training. By default any training is scheduled to start in the same day when the request was sent at 19:00. Attention! The time of the machines were the training is performed is usually GMT.
+  Observation: The fields `"HOUR"` and `"MINUTE"` are used to schedule the training. By default any training is scheduled to start in the same day when the request was sent at 16:00. Attention! The time of the machines were the training is performed is usually GMT.
   
   **Response:**
   ```python
