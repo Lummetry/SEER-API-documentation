@@ -160,30 +160,23 @@ After the filtered data is dumped in the view, you can make an API request (`POS
   **Request:**
   ```python
   {
-    "TASK" : "train",
+    "TASK" : "train_map",
     "CONTEXT_ID" : <str: mandatory>, # the id of the map / context
-    "SOURCE_VIEW" : "...",
-    "DST_TABLE" : "..."
+    "TABLE_INP" : <str: mandatory>, # the name of the table / view in the database where the filtered transactional data is stored
+    "TABLE_OUT" : <str: mandatory>, # the name of the table / view in the database where the map will be saved after training
+    "HOUR" : <int: optional [default 19]>, # the hour when this particular training will be scheduled 
+    "MINUTE" : <int: optional [default 0]> # the minute when this particular training will be scheduled
   }
   ```
   
-  **Response if success:**
+  Observation: The fields `"HOUR"` and `"MINUTE"` are used to schedule the training. By default any training is scheduled to start in the same day when the request was sent at 19:00. Attention! The time of the machines were the training is performed is usually GMT.
+  
+  **Response:**
   ```python
   {
-    "SUCCESS" : true
+    "message" : "success"
   }
   ```
-  
-  **Response if fail:**
-  ```python
-  {
-    "SUCCESS" : false,
-    "REASON" : <str> # the reason can be "unknown" or "Requested 'CONTEXT_ID' already exists"
-  }
-  ```
-  
-  Due to the fact that the training process is an asynchronous process whose duration is unknown, there are 2 possibilities to check if a certain process is finished:
-   1. Scheduled repetitive requests for the products table map (see A.1) using the provided `"CONTEXT_ID"` until the API returns `"SUCCESS" : true` and all the other information (`"DATAFRAME_MAP"` and `"INTERESTS_CENTERS"`)
-   2. At the end of the training process, we automatically upload `"DATAFRAME_MAP"` and `"INTERESTS_CENTERS"` in your database so you are not supposed anymore to make an API request because all the information will reside in your database.
+ 
   
   
